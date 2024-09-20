@@ -88,11 +88,11 @@ async function fetchAllData(
 
 export function HashnodeLoaderPosts({ endpoint = 'https://gql.hashnode.com', fields, variables = [], publicationHost }: HashnodeLoaderPostsOptions): Loader {
   if (!endpoint) {
-    throw new Error('HygraphLoader requires an endpoint')
+    throw new Error('Hashnode requires an endpoint')
   }
 
   if (!fields) {
-    throw new Error('HygraphLoader requires fields to be defined')
+    throw new Error('Hashnode requires fields to be defined')
   }
 
   const client = new GraphQLClient(endpoint)
