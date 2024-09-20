@@ -1,7 +1,7 @@
 {
   "name": "astro-loader",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "packageManager": "pnpm@9.9.0",
   "description": "A package for loading content into Astro's Content Collection API",
   "author": "Adrián UB",
@@ -20,6 +20,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
+    },
+    "./hashnode": {
+      "types": "./dist/hashnode/index.d.ts",
+      "import": "./dist/hashnode/index.mjs",
+      "require": "./dist/hashnode/index.cjs"
     }
   },
   "main": "./dist/index.mjs",
@@ -46,6 +51,11 @@
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
+  },
+  "dependencies": {
+    "astro": "^4.15.8",
+    "gql-query-builder": "^3.8.0",
+    "graphql-request": "^7.1.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.3.2",
