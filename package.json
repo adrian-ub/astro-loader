@@ -13,7 +13,10 @@
     "url": "git+https://github.com/adrian-ub/astro-loader.git"
   },
   "bugs": "https://github.com/adrian-ub/astro-loader/issues",
-  "keywords": [],
+  "keywords": [
+    "astro",
+    "astro-loader"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
