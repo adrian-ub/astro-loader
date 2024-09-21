@@ -19,6 +19,8 @@ pnpm add astro-loader
 <details>
 <summary>astro-loader/hashnode</summary>
 
+### Posts
+
 ```ts
 import { defineCollection, z } from 'astro:content'
 
@@ -44,6 +46,67 @@ const posts = defineCollection({
 })
 
 export const collections = { posts }
+```
+
+### Series
+
+```ts
+import { defineCollection, z } from 'astro:content'
+
+import { HashnodeLoaderSeries } from 'astro-loader/hashnode'
+
+const series = defineCollection({
+  loader: HashnodeLoaderSeries({
+    publicationHost: 'adrianub.dev/hashnode',
+    fields: [
+      'name',
+      'createdAt',
+      'coverImage',
+      {
+        description: ['html'],
+      },
+      {
+        operation: 'posts',
+        variables: {
+          first: {
+            name: 'first',
+            required: true,
+            value: 20,
+            type: 'Int',
+          },
+        },
+        fields: [{
+          edges: [{
+            node: ['slug', 'title', 'publishedAt', { coverImage: ['url'] }],
+          }],
+        }],
+      },
+    ],
+  }),
+  schema: z.object({
+    slug: z.string(),
+    name: z.string(),
+    createdAt: z.string().transform(date => new Date(date)),
+    coverImage: z.string().url(),
+    description: z.object({
+      html: z.string(),
+    }),
+    posts: z.object({
+      edges: z.array(z.object({
+        node: z.object({
+          slug: z.string(),
+          title: z.string(),
+          publishedAt: z.string().transform(date => new Date(date)),
+          coverImage: z.object({
+            url: z.string().url(),
+          }),
+        }),
+      })),
+    }),
+  }),
+})
+
+export const collections = { series }
 ```
 
 </details>
