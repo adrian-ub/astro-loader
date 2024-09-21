@@ -69,23 +69,10 @@ const series = defineCollection({
       {
         description: ['html', 'markdown'],
       },
-      {
-        operation: 'posts',
-        variables: {
-          first: {
-            name: 'first',
-            required: true,
-            value: 20,
-            type: 'Int',
-          },
-        },
-        fields: [{
-          edges: [{
-            node: ['slug', 'title', 'publishedAt', { coverImage: ['url'] }],
-          }],
-        }],
-      },
     ],
+    withPosts: {
+      fields: ['slug', 'title', 'publishedAt', { coverImage: ['url'] }],
+    },
   }),
   schema: z.object({
     slug: z.string(),
