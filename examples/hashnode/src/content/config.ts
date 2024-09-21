@@ -5,7 +5,7 @@ import { HashnodeLoaderPosts, HashnodeLoaderSeries } from 'astro-loader/hashnode
 const posts = defineCollection({
   loader: HashnodeLoaderPosts({
     publicationHost: 'adrianub.dev/hashnode',
-    fields: ['title', 'publishedAt', 'subtitle', { coverImage: ['url'], content: ['html'] }],
+    fields: ['title', 'publishedAt', 'subtitle', { coverImage: ['url'], content: ['html', 'markdown'] }],
   }),
   schema: z.object({
     slug: z.string(),
@@ -17,6 +17,7 @@ const posts = defineCollection({
     }),
     content: z.object({
       html: z.string(),
+      markdown: z.string(),
     }),
   }),
 })

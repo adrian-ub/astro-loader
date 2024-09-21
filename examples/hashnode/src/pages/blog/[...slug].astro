@@ -1,5 +1,7 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import { Markdown } from '@astropub/md';
+
 import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
@@ -12,9 +14,8 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'posts'>;
 
 const post = Astro.props;
-const { Content } = await render(post);
 ---
 
 <BlogPost {...post.data}>
-    <Content />
+    <Markdown of={post.data.content.markdown} />
 </BlogPost>
