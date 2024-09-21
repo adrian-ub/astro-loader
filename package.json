@@ -51,7 +51,7 @@
     "start": "esno src/index.ts",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "prepare": "simple-git-hooks"
+    "prepare": "simple-git-hooks && pnpm build && pnpm --filter=hashnode astro sync"
   },
   "dependencies": {
     "gql-query-builder": "^3.8.0",
