@@ -1,5 +1,7 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import { Markdown } from '@astropub/md';
+
 import BlogPost from '../../layouts/BlogPost.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 
@@ -13,13 +15,12 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'series'>;
 
 const serie = Astro.props;
-const { Content } = await render(serie);
 ---
 
 <BlogPost title={serie.data.name} subtitle="" publishedAt={serie.data.createdAt} coverImage={{
     url: serie.data.coverImage,
 }}>
-    <Content />
+    <Markdown of={serie.data.description.markdown!} />
 
     <section style="margin-top: 2rem;">
         <style>

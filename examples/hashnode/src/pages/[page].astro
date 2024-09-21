@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Markdown } from '@astropub/md';
+
+import Layout from '../layouts/BlogPost.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('pages');
+	return posts.map((post) => ({
+		params: { page: post.data.slug },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'pages'>;
+
+const page = Astro.props;
+---
+
+<Layout
+	title={page.data.title}
+	subtitle="Lorem ipsum dolor sit amet"
+	publishedAt={new Date('August 08 2021')}
+	coverImage={{url:page.data.ogMetaData.image}}
+>
+    <Markdown of={page.data.content.markdown} />
+</Layout>

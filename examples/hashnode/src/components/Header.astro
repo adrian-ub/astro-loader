@@ -1,6 +1,9 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+
+const pages = await getCollection('pages')
 ---
 
 <header>
@@ -11,6 +14,7 @@ import { SITE_TITLE } from '../consts';
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/series">Series</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
+            {pages.map(page => <HeaderLink href={`/${page.data.slug}`}>{page.data.title}</HeaderLink>)}
 		</div>
 		<div class="social-links">
 			<a href="https://m.webtoo.ls/@astro" target="_blank">
