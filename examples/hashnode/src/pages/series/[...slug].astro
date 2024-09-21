@@ -90,7 +90,7 @@ const serie = Astro.props;
 			}
         </style>
         <ul>
-            {serie.data.posts.edges.map(({node: post}) => <li>
+            {serie.data.posts.map((post) => <li>
                 <a href={`/blog/${post.slug}/`}>
                     <img width={720} height={360} src={post.coverImage.url} alt="" />
                     <h4 class="title">{post.title}</h4>

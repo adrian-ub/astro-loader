@@ -2,6 +2,8 @@ import * as gql from 'gql-query-builder'
 import { GraphQLClient } from 'graphql-request'
 import type { Loader } from 'astro/loaders'
 
+import { flattenEdges } from '../utils/flatten-edges'
+
 export interface HashnodeLoaderOptions {
   operation: 'seriesList' | 'posts' | 'staticPages'
   endpoint?: string
@@ -73,16 +75,10 @@ async function fetchAllData(
       }
     }>(query.query, query.variables)
 
-    // if next page exists, update endCursor and hasNextPage and call the function again
-    if (res[publication][operation].pageInfo.hasNextPage) {
-      endCursor = res[publication][operation].pageInfo.endCursor
-      data = [...data, ...res[publication][operation].edges]
-      hasNextPage = res[publication][operation].pageInfo.hasNextPage
-    }
-    else {
-      data = [...data, ...res[publication][operation].edges]
-      hasNextPage = false
-    }
+    hasNextPage = res[publication][operation].pageInfo.hasNextPage
+    endCursor = res[publication][operation].pageInfo.endCursor
+
+    data = [...data, ...flattenEdges(res[publication])[operation]]
   }
 
   return data
@@ -113,10 +109,9 @@ export function HashnodeLoader({ endpoint = 'https://gql.hashnode.com', fields, 
       const data = await fetchAllData(client, { fields, variables: connectionVariables, operation })
 
       for (const item of data) {
-        const itemData = item.node
-        const parsedData = await parseData({ id: itemData.id, data: itemData })
+        const parsedData = await parseData({ id: item, data: item })
         store.set({
-          id: itemData.id,
+          id: item.id,
           data: parsedData,
         })
       }

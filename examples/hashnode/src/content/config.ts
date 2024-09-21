@@ -62,18 +62,14 @@ const series = defineCollection({
       html: z.string(),
       markdown: z.string(),
     }),
-    posts: z.object({
-      edges: z.array(z.object({
-        node: z.object({
-          slug: z.string(),
-          title: z.string(),
-          publishedAt: z.string().transform(date => new Date(date)),
-          coverImage: z.object({
-            url: z.string().url(),
-          }),
-        }),
-      })),
-    }),
+    posts: z.array(z.object({
+      slug: z.string(),
+      title: z.string(),
+      publishedAt: z.string().transform(date => new Date(date)),
+      coverImage: z.object({
+        url: z.string().url(),
+      }),
+    })),
   }),
 })
 
