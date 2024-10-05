@@ -1,7 +1,7 @@
 {
   "name": "astro-loader",
   "type": "module",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "packageManager": "pnpm@9.9.0",
   "description": "A package for loading content into Astro's Content Collection API",
   "author": "Adrián UB",
@@ -15,7 +15,9 @@
   "bugs": "https://github.com/adrian-ub/astro-loader/issues",
   "keywords": [
     "astro",
-    "astro-loader"
+    "astro-loader",
+    "withastro",
+    "astro-integration"
   ],
   "sideEffects": false,
   "exports": {
